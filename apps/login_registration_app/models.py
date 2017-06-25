@@ -34,7 +34,14 @@ class Post(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 	objects = PostManager()
 
-
+class Comment(models.Model):
+	comment = models.Textfield()
+	post = models.ForeignKey(Post,related_name="comments")
+	user = models.ForeignKey(User,related_name="users")
+	likes = models.ManyToManyField(User,related_name="comments_liked")
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	objects = CommentManager()
 
 
 
