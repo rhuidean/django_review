@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 
-'''Multiple apps''
+'''Multiple apps'''
 '''Regex from beginning'''
 urlpatterns = [
     url(r'^', include('apps.django_review_app.urls')),
