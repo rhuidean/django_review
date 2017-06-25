@@ -6,6 +6,24 @@ import re, bcrypt
 
 ### Create the models and add additional method to the built in model methods
 ''' Spelling!!! '''
+class UserManager(models.Manager):
+	def validateUser(self,post):
+		is_valid = True
+		errors = []
+		if len(post.get('name')) == 0:
+			is_valid = False
+			errors.append('Name field cannot be blank')
+		if not re.search(r'\w+\@\w+\.\w+', post.get('email')):
+			is_valid = False
+			errors.append('You must provide a valid email address')
+		if len(post.get('password')) == 0:
+			is_valid = False
+			errors.append('Password cannot be blank')
+		if post.get('password') != post.get('password_confirmation'):
+			is_valid = False
+			errors.append('Your passwords do not match')
+		return (is_valid, errors)
+
 
 class User(models.Model):
 	first_name = models.CharField(max_length=255)
