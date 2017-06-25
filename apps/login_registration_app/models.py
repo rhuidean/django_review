@@ -6,6 +6,7 @@ import re, bcrypt
 
 ### Create the models and add additional method to the built in model methods
 ''' Spelling!!! '''
+### post: data in dictionary form
 class UserManager(models.Manager):
 	def validateUser(self,post):
 		is_valid = True
@@ -24,6 +25,21 @@ class UserManager(models.Manager):
 			errors.append('Your passwords do not match')
 		return (is_valid, errors)
 
+	def loginUser(self, post):
+		user = User.objects.filter(email=post.get('email')).first()
+		if user and bcrypt.checkpw(post.get('password').encode(), user.password.encode()):
+			return {'status': True, 'user': user}
+		else:
+			return {'status': False, 'message': 'invalid credentials'}
+
+class PostManager(models.Manager):
+	def validatePost(self, post):
+		is_valid = True
+		errors = []
+		if len(post.get('post')) == 0:
+			is_valid = False
+			errors.append('Post must not be blank')
+		return {'status': is_valid, 'errors': errors}
 
 class User(models.Model):
 	first_name = models.CharField(max_length=255)
