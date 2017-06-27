@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render,redirect
+from django.contrib import messages
+from django.db.models import Count
+from .models import *
 
 def index(request):
-	print "Inside the index method."
-	return render(request,'django_review_app/index.html')
+	return render(request,'login_registration_app/index.html')
