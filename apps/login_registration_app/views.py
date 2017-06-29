@@ -40,3 +40,12 @@ def showBook(request, id):
 		'current_user': current_user(request),
 	}
 	return render(request, 'main/show_book.html', context)
+
+
+def newBook(request):
+	#get authors from DB
+	context = {
+		'authors': Author.objects.all(),
+	}
+	#display a form for creating a new book and a review
+	return render(request, 'main/new_book.html', context)
