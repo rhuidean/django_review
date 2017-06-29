@@ -9,5 +9,6 @@ urlpatterns = [
 	url(r'^$users$',views.createUser),
 	url(r'^login$',views.loginUser),
 	url(r'^logout$',views.logout),
-	url(r'^books/new$',views.newBook)
+	url(r'^books/new$',views.newBook),
+	url(r'^books$',views.indexBook)
 ]
