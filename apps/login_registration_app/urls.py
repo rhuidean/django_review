@@ -7,4 +7,6 @@ from . import views
 urlpatterns = [
 	url(r'^$',views.index),
 	url(r'^$users$',views.createUser),
+	url(r'^$',views.loginUser),
+	url(r'^$',views.logout),
 ]
