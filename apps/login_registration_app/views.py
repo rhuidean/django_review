@@ -49,3 +49,17 @@ def newBook(request):
 	}
 	#display a form for creating a new book and a review
 	return render(request, 'main/new_book.html', context)
+	
+def indexBook(request):
+	duplicate_reviews = Review.objects.order_by('-created_at').all()[3:]
+	other_book_reviews = []
+	for review in duplicate_reviews:
+		if review.book not in other_book_reviews:
+			other_book_reviews.append(review.book)
+
+	context = {
+		'current_user': current_user(request),
+		'recent_book_reviews': Review.objects.order_by('-created_at').all()[:3],
+		'other_book_reviews': other_book_reviews,
+	}
+	return render(request, 'main/books.html', context)
